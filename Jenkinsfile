@@ -47,7 +47,7 @@ pipeline {
 
                 echo "Building Docker image"
 
-                sh "docker build -t ${APP_NAME}:${IMAGE_TAG} ."
+               sh "docker build -t ${APP_NAME}:${params.IMAGE_TAG} ."
 
             }
         }
@@ -70,9 +70,9 @@ pipeline {
 
                     sh "docker login -u ${dockerHubUser} -p ${dockerHubPass}"
 
-                    sh "docker tag ${APP_NAME}:${IMAGE_TAG} ${dockerHubUser}/${APP_NAME}:${IMAGE_TAG}"
+                    sh "docker tag ${APP_NAME}:${params.IMAGE_TAG} ${dockerHubUser}/${APP_NAME}:${params.IMAGE_TAG}"
 
-                    sh "docker push ${dockerHubUser}/${APP_NAME}:${IMAGE_TAG}"
+                    sh "docker push ${dockerHubUser}/${APP_NAME}:${params.IMAGE_TAG}"
 
                 }
             }
@@ -83,7 +83,7 @@ pipeline {
 
                 echo "Deploying application"
 
-                echo "Selected Environment: ${BUILD_ENV}"
+                echo "Selected Environment: ${params.BUILD_ENV}"
 
             }
         }
